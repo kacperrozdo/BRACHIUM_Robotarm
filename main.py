@@ -1,49 +1,46 @@
 from machine import Pin, ADC, PWM
-from time import sleep_ms
+import time
 
-MIN_DUTY = 1638.0
-MAX_DUTY = 8191.0
+pots = (ADC(Pin(28)), ADC(Pin(27)), ADC(Pin(26))) #ramie1, platforma obrotowa, ramie2 
+servos = (PWM(Pin(18)), PWM(Pin(17)), PWM(Pin(16)))
 
-# Ograniczenia zakresu dla kazdego serwa osobno
-SERVO1_MIN, SERVO1_MAX = MIN_DUTY, MAX_DUTY   # podstawa
-SERVO2_MIN, SERVO2_MAX = MIN_DUTY, MAX_DUTY   # ramie1
-SERVO3_MIN, SERVO3_MAX = MIN_DUTY, MAX_DUTY   # ramie2
+for servo in servos:
+    servo.freq(50)
 
-def clamp(value, min_val, max_val):
-    return max(min_val, min(max_val, value))
+DEAD_ZONE = 2 # Minimalny kąt, który jeśli zostanie przekroczony to serwo wykona ruch (ograniczenie drgania)
+SAMPLES = 8 # Liczba próbek uśrednianych przy odczycie z ADC (redukcja szumu pomiaru)
 
-servo1 = PWM(Pin(16)) # podstawa
-servo1.freq(50)
-servo2 = PWM(Pin(17)) # ramie1
-servo2.freq(50)
-servo3 = PWM(Pin(18)) # ramie2
-servo3.freq(50)
+# Sklaowanie wartości między zakresami
+def map_value(x, in_min, in_max, out_min, out_max):
+    return (x - in_min) * (out_max - out_min) // (in_max - in_min) + out_min
 
-# Joystick 1
-joy1_x = ADC(Pin(27))  # ADC2, podstawa
-joy1_y = ADC(Pin(28))  # ADC1, ramie1
-# Joystick 2
-joy2_y = ADC(Pin(26))  # ADC0, ramie2
+# Ustawienie kąta serwa
+def set_angle(servo, angle):
+    min_duty = 1638
+    max_duty = 8192
+    duty = map_value(angle, 0, 180, min_duty, max_duty) # Zamiana kąta (0-180) na wartość wypełnienia PWM (16-bitowa)
+    servo.duty_u16(duty)
 
-average = (MAX_DUTY + MIN_DUTY) / 2
-position1 = average
-position2 = average
-position3 = average
+# Odczyt z potencometru + uśrednienie szumu
+def read_pot_averaged(pot):
+    total = 0
+    for _ in range(SAMPLES):
+        total += pot.read_u16()
+    return total // SAMPLES
+
+last_angles = [None, None, None] # Ostatni kąt wysłany do każdego serwa (None = jeszcze nie ustawiony)
+current_angles = [0, 0, 0] # Bieżące kąty (do samego wyświetlania na konsoli)
 
 while True:
-    target1 = MIN_DUTY + joy1_x.read_u16() * (MAX_DUTY - MIN_DUTY) // 65535 # przeskalowanie odczytu joysticka na zakres wypełnienia PWM
-    position1 += (target1 - position1) // 4  # filtr wygladzajacy
-    position1 = clamp(position1, SERVO1_MIN, SERVO1_MAX) # zabezpieczenie
-    servo1.duty_u16(int(position1)) # wykonanie ruchu
+    for i in range(3):
+        pot_value = read_pot_averaged(pots[i])
+        angle = map_value(pot_value, 0, 65535, 0, 180)
+        current_angles[i] = angle
 
-    target2 = MIN_DUTY + joy1_y.read_u16() * (MAX_DUTY - MIN_DUTY) // 65535
-    position2 += (target2 - position2) // 4
-    position2 = clamp(position2, SERVO2_MIN, SERVO2_MAX)
-    servo2.duty_u16(int(position2))
+        if last_angles[i] is None or abs(angle - last_angles[i]) >= DEAD_ZONE:
+            set_angle(servos[i], angle)
+            last_angles[i] = angle
 
-    target3 = MIN_DUTY + joy2_y.read_u16() * (MAX_DUTY - MIN_DUTY) // 65535
-    position3 += (target3 - position3) // 4
-    position3 = clamp(position3, SERVO3_MIN, SERVO3_MAX)
-    servo3.duty_u16(int(position3))
+    print("Serwo 1: {}  Serwo 2: {}  Serwo 3: {}".format(*current_angles))
 
-    sleep_ms(15)
+    time.sleep(0.02)
