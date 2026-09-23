@@ -5,16 +5,24 @@ pots = (
     ADC(Pin(32)), # 1
     ADC(Pin(35)), # 2
     ADC(Pin(36)), # 3
-    ADC(Pin(34)), # 4
-    ADC(Pin(39)), # 5
+    ADC(Pin(39)), # 4
+    ADC(Pin(34)), # 5
 )
 
 servos = (
     PWM(Pin(13)), # rotacja chwytaka
     PWM(Pin(12)), # chwytak
     PWM(Pin(26)), # platfroma obrotowa
-    PWM(Pin(27)), # ramie 1
-    PWM(Pin(14)), # ramie 2
+    PWM(Pin(14)), # ramie 1
+    PWM(Pin(27)), # ramie 2
+)
+
+NAMES = (
+    "rotacja chwytaka",
+    "chwytak",
+    "platforma obrotowa",
+    "ramie 1",
+    "ramie 2",
 )
 
 N = len(servos)
@@ -24,19 +32,37 @@ REVERSED = (
     True,  # rotacja chwytaka
     False, # chwytak
     False, # platforma obrotowa
-    False, # ramie 1
-    True,  # ramie 2
+    True,  # ramie 1
+    False, # ramie 2
+)
+
+# Dopuszczalny zakres kąta (min, max) dla każdego serwa - ochrona przed uszkodzeniem mechanizmu
+ANGLE_LIMITS = (
+    (21, 122), # rotacja chwytaka
+    (0, 180), # chwytak
+    (45, 135), # platforma obrotowa
+    (20, 180), # ramie 1
+    (45, 135), # ramie 2
 )
 
 for servo in servos:
     servo.freq(50)
 
-DEAD_ZONE = 3 # Minimalny kąt, który jeśli zostanie przekroczony to serwo wykona ruch (ograniczenie drgania)
+DEAD_ZONE = 1.5 # Minimalny kąt, który jeśli zostanie przekroczony to serwo wykona ruch (ograniczenie drgania)
 SAMPLES = 8 # Liczba próbek uśrednianych przy odczycie z ADC (redukcja szumu pomiaru)
 
 # Sklaowanie wartości między zakresami
 def map_value(x, in_min, in_max, out_min, out_max):
     return (x - in_min) * (out_max - out_min) // (in_max - in_min) + out_min
+
+# Ograniczenie kąta do dopuszczalnego zakresu serwa
+def clamp_angle(angle, limits):
+    min_angle, max_angle = limits
+    if angle < min_angle:
+        return min_angle
+    if angle > max_angle:
+        return max_angle
+    return angle
 
 # Ustawienie kąta serwa
 def set_angle(servo, angle):
@@ -62,12 +88,13 @@ while True:
             angle = map_value(pot_value, 0, 65535, 180, 0)
         else:
             angle = map_value(pot_value, 0, 65535, 0, 180)
+        angle = clamp_angle(angle, ANGLE_LIMITS[i])
         current_angles[i] = angle
 
         if last_angles[i] is None or abs(angle - last_angles[i]) >= DEAD_ZONE:
             set_angle(servos[i], angle)
             last_angles[i] = angle
 
-    print("1: {}  2: {}  3: {}  4: {}  5: {}".format(*current_angles))
+    print("  ".join("{}: {:>3}".format(NAMES[i], current_angles[i]) for i in range(N)))
 
     time.sleep(0.02)

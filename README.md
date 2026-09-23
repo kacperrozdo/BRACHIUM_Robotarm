@@ -15,7 +15,7 @@ Projekt bazuje na mikrokontrolerze **ESP32-DevKitC**.
 | Stabilizator napięcia | L7805CV | 1 |
 | Przewody połączeniowe | - | - |
 | Płytka prototypowa | - | - |
-| *Adapter ESP32 (opcjonalnie)* | *—* | *1* |
+| *Adapter ESP32 (opcjonalnie)* | - | *1* |
 
 ### Wkręty i śruby
 
