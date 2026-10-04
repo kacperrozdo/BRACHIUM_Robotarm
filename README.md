@@ -1,10 +1,9 @@
 # BRACHIUM - 5 DOF Robot Arm
 
-[ENGLISH](#english)
-[POLSKI](#polski)
+[ENGLISH](#english) | [POLSKI](#polski)
 
 # ENGLISH
----
+
 ## Description
 
 A servo-based robotic arm, manually controlled with 5 potentiometers – each one drives a single motor. A gripper is mounted at the end of the arm. The project is based on the **ESP32-DevKitC** microcontroller.
@@ -36,11 +35,13 @@ Inspirations:
 - [Power Supply](#power-supply)
 
 ---
+
 ## 3D Model
 
 The 3D printable files are available on my MakerWorld profile at this link: ...
 
 ---
+
 ## BOM
 
 Every component I used has a link in its name to the store where I bought it.
@@ -91,7 +92,8 @@ Kits used: [screws](https://allegro.pl/produkt/815x-wkrety-samowiercace-do-drewn
 
 ## Printing Notes
 
-> **Pause at layer 78 (rotating platform)** 
+> **Pause at layer 78 (rotating platform)**
+>
 > The rotating platform print will pause at layer 78. At that point, insert the twelve 10 g weights – 3 into each of the 4 slots – and resume printing.
 
 ---
@@ -145,6 +147,7 @@ Screws and bolts without any annotation have a **pan** head. Flat heads are mark
 18. Attach the jaws to the rails – 4× M3×10 screw (flat).
 
 ---
+
 ## Power Supply
 
 To power the circuit, I used a [Korad KA3005DS 0-30V 5A](https://botland.com.pl/zasilacze-laboratoryjne/23190-zasilacz-laboratoryjny-korad-ka3005ds-0-30v-5a-5904422384326.html) lab power supply.
@@ -152,9 +155,8 @@ To power the circuit, I used a [Korad KA3005DS 0-30V 5A](https://botland.com.pl/
 > [!IMPORTANT]
 > Under load, each MG996R servo can draw up to 2.5 A. The power supply must have enough current headroom to handle the load they create.
 
-
 # POLSKI
----
+
 ## Opis
 
 Ramię robotyczne oparte na serwomechanizmach, sterowane ręcznie za pomocą 5 potencjometrów – każdy odpowiada za jeden silnik. Na końcu ramienia znajduje się chwytak. Projekt bazuje na mikrokontrolerze **ESP32-DevKitC**.
@@ -169,7 +171,7 @@ Inspiracje:
 ## Spis treści
 
 - [Model 3D](#model-3d)
-- [BOM](#bom)
+- [BOM](#bom-1)
     - [Elektronika](#elektronika)
     - [Wkręty i śruby](#wkr%C4%99ty-i-%C5%9Bruby)
     - [Części mechaniczne](#cz%C4%99%C5%9Bci-mechaniczne)
@@ -186,11 +188,13 @@ Inspiracje:
 - [Zasilanie](#zasilanie)
 
 ---
+
 ## Model 3D
 
 Pliki do 3D do druku dostępne są na moim profilu Makerworld pod tym linkiem: ...
 
 ---
+
 ## BOM
 
 Wszystkie użyte przeze mnie elementy mają przy nazwie link do sklepu, w którym je kupiłem.
@@ -241,7 +245,8 @@ Użyte zestawy: [wkręty](https://allegro.pl/produkt/815x-wkrety-samowiercace-do
 
 ## Uwagi do druku
 
-> **Pauza na warstwie 78 (platforma obrotowa)** 
+> **Pauza na warstwie 78 (platforma obrotowa)**
+>
 > Wydruk platformy obrotowej zatrzyma się na warstwie 78. Włóż wtedy 12 ciężarków po 10 g – po 3 do każdego z 4 slotów – i wznów druk.
 
 ---
@@ -295,6 +300,7 @@ Wkręty i śruby bez dopisku mają łeb **wypukły**. Łeb płaski oznaczono dop
 18. Przykręć szczypce do szyn – 4× wkręt M3×10 (płaski).
 
 ---
+
 ## Zasilanie
 
 Do zasilania układu użyłem zasilacza laboratoryjnego [Korad KA3005DS 0-30V 5A](https://botland.com.pl/zasilacze-laboratoryjne/23190-zasilacz-laboratoryjny-korad-ka3005ds-0-30v-5a-5904422384326.html).
