@@ -29,26 +29,26 @@ N = len(servos)
 
 # True = odwrócony kierunek ruchu serwa względem obrotu potencjometru
 REVERSED = (
-    True,  # rotacja chwytaka
+    False,  # rotacja chwytaka
     False, # chwytak
     False, # platforma obrotowa
-    True,  # ramie 1
+    False,  # ramie 1
     False, # ramie 2
 )
 
-# Dopuszczalny zakres kąta (min, max) dla każdego serwa - ochrona przed uszkodzeniem mechanizmu
+# Dopuszczalny zakres kąta (min, max) dla każdego serwa
 ANGLE_LIMITS = (
-    (21, 122), # rotacja chwytaka
+    (0, 180), # rotacja chwytaka
     (0, 180), # chwytak
-    (45, 135), # platforma obrotowa
-    (20, 180), # ramie 1
-    (45, 135), # ramie 2
+    (0, 180), # platforma obrotowa
+    (0, 180), # ramie 1
+    (0, 180), # ramie 2
 )
 
 for servo in servos:
     servo.freq(50)
 
-DEAD_ZONE = 1.5 # Minimalny kąt, który jeśli zostanie przekroczony to serwo wykona ruch (ograniczenie drgania)
+DEAD_ZONE = 2 # Minimalny kąt, który jeśli zostanie przekroczony to serwo wykona ruch (ograniczenie drgania)
 SAMPLES = 8 # Liczba próbek uśrednianych przy odczycie z ADC (redukcja szumu pomiaru)
 
 # Sklaowanie wartości między zakresami
