@@ -2,19 +2,19 @@ from machine import Pin, ADC, PWM
 import time
 
 pots = (
-    ADC(Pin(32)), # 1
-    ADC(Pin(35)), # 2
-    ADC(Pin(36)), # 3
-    ADC(Pin(39)), # 4
-    ADC(Pin(34)), # 5
+    ADC(Pin(32)), 
+    ADC(Pin(35)), 
+    ADC(Pin(36)), 
+    ADC(Pin(39)), 
+    ADC(Pin(34)), 
 )
 
 servos = (
-    PWM(Pin(13)), # rotacja chwytaka
-    PWM(Pin(12)), # chwytak
-    PWM(Pin(26)), # platfroma obrotowa
-    PWM(Pin(14)), # ramie 1
-    PWM(Pin(27)), # ramie 2
+    PWM(Pin(13)), 
+    PWM(Pin(12)), 
+    PWM(Pin(26)), 
+    PWM(Pin(14)), 
+    PWM(Pin(27)), 
 )
 
 NAMES = (
@@ -27,35 +27,31 @@ NAMES = (
 
 N = len(servos)
 
-# True = odwrócony kierunek ruchu serwa względem obrotu potencjometru
 REVERSED = (
-    False,  # rotacja chwytaka
-    False, # chwytak
-    False, # platforma obrotowa
-    False,  # ramie 1
-    False, # ramie 2
+    False,
+    False, 
+    False, 
+    False,
+    False,
 )
 
-# Dopuszczalny zakres kąta (min, max) dla każdego serwa
 ANGLE_LIMITS = (
-    (0, 180), # rotacja chwytaka
-    (0, 180), # chwytak
-    (0, 180), # platforma obrotowa
-    (0, 180), # ramie 1
-    (0, 180), # ramie 2
+    (0, 180), 
+    (0, 180), 
+    (0, 180), 
+    (0, 180), 
+    (0, 180), 
 )
 
 for servo in servos:
     servo.freq(50)
 
-DEAD_ZONE = 2 # Minimalny kąt, który jeśli zostanie przekroczony to serwo wykona ruch (ograniczenie drgania)
-SAMPLES = 8 # Liczba próbek uśrednianych przy odczycie z ADC (redukcja szumu pomiaru)
+DEAD_ZONE = 2 
+SAMPLES = 8 
 
-# Sklaowanie wartości między zakresami
 def map_value(x, in_min, in_max, out_min, out_max):
     return (x - in_min) * (out_max - out_min) // (in_max - in_min) + out_min
 
-# Ograniczenie kąta do dopuszczalnego zakresu serwa
 def clamp_angle(angle, limits):
     min_angle, max_angle = limits
     if angle < min_angle:
@@ -64,22 +60,20 @@ def clamp_angle(angle, limits):
         return max_angle
     return angle
 
-# Ustawienie kąta serwa
 def set_angle(servo, angle):
     min_duty = 1638
     max_duty = 8192
-    duty = map_value(angle, 0, 180, min_duty, max_duty) # Zamiana kąta (0-180) na wartość wypełnienia PWM (16-bitowa)
+    duty = map_value(angle, 0, 180, min_duty, max_duty)
     servo.duty_u16(duty)
 
-# Odczyt z potencometru + uśrednienie szumu
 def read_pot_averaged(pot):
     total = 0
     for _ in range(SAMPLES):
         total += pot.read_u16()
     return total // SAMPLES
 
-last_angles = [None] * N # Ostatni kąt wysłany do każdego serwa (None = jeszcze nie ustawiony)
-current_angles = [0] * N # Bieżące kąty (do samego wyświetlania na konsoli)
+last_angles = [None] * N 
+current_angles = [0] * N
 
 while True:
     for i in range(N):
