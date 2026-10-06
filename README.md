@@ -7,6 +7,8 @@
 
 A servo-based robotic arm, manually controlled with 5 potentiometers – each one drives a single motor. A gripper is mounted at the end of the arm. The project is based on the **ESP32-DevKitC** microcontroller.
 
+The photos of the robotic arm are in the ‘images’ folder.
+
 This is my first robotic arm, so I'm aware of a few mistakes I made along the way. I'll be grateful for any tips and constructive feedback that will help me develop the project further.
 
 Inspirations:
@@ -34,12 +36,10 @@ Inspirations:
 - [Wiring diagram](#wiring-diagram)
 - [Power Supply](#power-supply)
 
----
 ## 3D Model
 
 The 3D printable files are available on my MakerWorld profile at this link: [BRACHIUM - 5 DOF Robotarm](https://makerworld.com/pl/models/3395564-brachium-5-dof-robotarm?from=search#profileId-3865269)
 
----
 ## BOM
 
 Every component I used has a link in its name to the store where I bought it.
@@ -86,13 +86,11 @@ Kits used: [screws](https://allegro.pl/produkt/815x-wkrety-samowiercace-do-drewn
 |---|---|:-:|
 |[Steel weights](https://allegro.pl/produkt/ciezarki-klejone-do-felg-5g-10g-edgy-slim-50-szt-ocynkowane-stix-7e35ca66-2ed7-4c2c-b1ab-135471617335?offerId=14093125581)|10 g|12|
 
----
 ## Printing Notes
 
 > **Pause at layer 78 (rotating platform)** 
 > The rotating platform print will pause at layer 78. At that point, insert the twelve 10 g weights – 3 into each of the 4 slots – and resume printing.
 
----
 ## Assembly
 
 ### Assembly Variants
@@ -141,12 +139,10 @@ Screws and bolts without any annotation have a **pan** head. Flat heads are mark
 17. Attach the cover to the gripper – 2× M3×10 screw.
 18. Attach the jaws to the rails – 4× M3×10 screw (flat).
 
----
 ## Wiring diagram
 
-<img src="Wiring%20diagram.png" alt="Wiring diagram" width="716">
+<img src="images/Wiring_diagram.png" alt="Wiring diagram" width="716">
 
----
 ## Power Supply
 
 To power the circuit, I used a [Korad KA3005DS 0-30V 5A](https://botland.com.pl/zasilacze-laboratoryjne/23190-zasilacz-laboratoryjny-korad-ka3005ds-0-30v-5a-5904422384326.html) lab power supply.
@@ -160,6 +156,8 @@ To power the circuit, I used a [Korad KA3005DS 0-30V 5A](https://botland.com.pl/
 ## Opis
 
 Ramię robotyczne oparte na serwomechanizmach, sterowane ręcznie za pomocą 5 potencjometrów – każdy odpowiada za jeden silnik. Na końcu ramienia znajduje się chwytak. Projekt bazuje na mikrokontrolerze **ESP32-DevKitC**.
+
+Zdjęcia ramienia robotycznego znajdują się w folderze 'images'.
 
 To moje pierwsze ramię robotyczne, więc zdaję sobie sprawę z kilku popełnionych błędów. Będę wdzięczny za wszelkie porady i konstruktywne uwagi, które pomogą rozwinąć projekt w przyszłości.
 
@@ -188,12 +186,10 @@ Inspiracje:
 - [Schemat połączeń](#schemat-po%C5%82%C4%85cze%C5%84)
 - [Zasilanie](#zasilanie)
 
----
 ## Model 3D
 
 Pliki do 3D do druku dostępne są na moim profilu Makerworld pod tym linkiem: [BRACHIUM - 5 DOF Robotarm](https://makerworld.com/pl/models/3395564-brachium-5-dof-robotarm?from=search#profileId-3865269)
 
----
 ## BOM
 
 Wszystkie użyte przeze mnie elementy mają przy nazwie link do sklepu, w którym je kupiłem.
@@ -240,13 +236,11 @@ Użyte zestawy: [wkręty](https://allegro.pl/produkt/815x-wkrety-samowiercace-do
 |---|---|:-:|
 |[Stalowe ciężarki](https://allegro.pl/produkt/ciezarki-klejone-do-felg-5g-10g-edgy-slim-50-szt-ocynkowane-stix-7e35ca66-2ed7-4c2c-b1ab-135471617335?offerId=14093125581)|10 g|12|
 
----
 ## Uwagi do druku
 
 > **Pauza na warstwie 78 (platforma obrotowa)** 
 > Wydruk platformy obrotowej zatrzyma się na warstwie 78. Włóż wtedy 12 ciężarków po 10 g – po 3 do każdego z 4 slotów – i wznów druk.
 
----
 ## Montaż
 
 ### Warianty montażu
@@ -295,12 +289,10 @@ Wkręty i śruby bez dopisku mają łeb **wypukły**. Łeb płaski oznaczono dop
 17. Przykręć nakładkę do chwytaka – 2× wkręt M3×10.
 18. Przykręć szczypce do szyn – 4× wkręt M3×10 (płaski).
 
----
 ## Schemat połączeń
 
-<img src="Wiring%20diagram.png" alt="Schemat połączeń" width="716">
+<img src="images/Wiring_diagram.png" alt="Schemat połączeń" width="716">
 
----
 ## Zasilanie
 
 Do zasilania układu użyłem zasilacza laboratoryjnego [Korad KA3005DS 0-30V 5A](https://botland.com.pl/zasilacze-laboratoryjne/23190-zasilacz-laboratoryjny-korad-ka3005ds-0-30v-5a-5904422384326.html).
